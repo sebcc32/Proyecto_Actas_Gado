@@ -1,12 +1,13 @@
 import json
 
-file = open("ListaCriterios.json", "r")
-js = file.read()
-lista_criterios = json.loads(js)
 
 class Criterio:
 
     def __init__(self, observacion, nota1, nota2, ponderado):
+        file = open("ListaCriterios.json", "r")
+        js = file.read()
+        lista_criterios = json.loads(js)
+
         self._observacion = observacion
         self._criterio = lista_criterios
         self._nota1 = nota1
