@@ -1,18 +1,13 @@
 import json
 
-
 class Criterio:
 
-    def __init__(self, observacion, nota1, nota2, ponderado):
-        file = open("ListaCriterios.json", "r")
-        js = file.read()
-        lista_criterios = json.loads(js)
-
-        self._observacion = observacion
-        self._criterio = lista_criterios
-        self._nota1 = nota1
-        self._nota2 = nota2
-        self._ponderado = ponderado
+    def __init__(self) -> None:
+        self.criterio = ""
+        self.observacion = " "
+        self.nota1 = " "
+        self.nota2 = " "
+        self.ponderado = " "
 
     def __str__(self) -> None:
         return json.dump(self.__dict__)

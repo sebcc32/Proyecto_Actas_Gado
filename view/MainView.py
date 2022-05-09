@@ -1,9 +1,10 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-from controller.EvalController import EvaluadorController
-from view.AboutPartial import consultar_instrucciones
-from view.EvalPartial import agregar_evaluacion
+from controller.Controlador import EvaluadorController
+from view.Inicio import mesaje_inicio_asistente, mesaje_inicio_jurados, mesaje_inicio_directora
+from view.EvalTrabajoGrado import agregar_acta, agregar_evaluacion
+from ListaActa import listar_actas
 from view.PruebaPartial import probar_streamlit, abrir_musica
 
 
@@ -25,10 +26,10 @@ class MainView:
         st.set_page_config(page_title="Actas de Grado", page_icon='', layout="wide",
                            initial_sidebar_state="expanded")
         # Defines the number of available columns del area principal
-        self.col1, self.col2, self.col3 = st.columns([1, 1, 1])
+        #self.col1, self.col2, self.col3 = st.columns([1, 6, 1])
 
         # Define lo que abrá en la barra de menu
-        self.menu_actual = option_menu(None, ["Asistente", 'Jurados', 'Director'],
+        self.menu_actual = option_menu(None, ["Asistente", 'Jurados', 'Directora'],
                                            icons=['person', 'people', 'file-person'],
                                             menu_icon="cast", default_index=0, orientation="horizontal",
                                             styles = {
@@ -39,24 +40,32 @@ class MainView:
 
     def controlar_menu(self):
         if self.menu_actual == "Asistente":
-            consultar_instrucciones(st)
             with st.sidebar:
-                self.menu_actual = option_menu(None, ['Crear Acta', 'Ver Historicos'],
-                                               icons=['mortarboard', 'stack-overflow'],
+                self.menu_actual = option_menu(None, ["Asistente", 'Crear Acta', 'Ver Historicos'],
+                                               icons=["briefcase", 'mortarboard', 'stack-overflow'],
                                                menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
+            if self.menu_actual == "Asistente":
+                mesaje_inicio_asistente(st)
+            elif self.menu_actual == "Crear Acta":
+                agregar_acta(st, self.controller)
+            elif self.menu_actual == "Ver Historicos":
+                listar_actas(st, self.controller)
         elif self.menu_actual == "Jurados":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ['Exportar Acta', 'Evaluar Trabajo'],
-                                               icons=['file-pdf', 'pencil-square'],
+                self.menu_actual = option_menu(None, ["Jurados", 'Exportar Acta', 'Evaluar Trabajo'],
+                                               icons=["briefcase", 'file-pdf', 'pencil-square'],
                                                menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
-        elif self.menu_actual == "Director":
+            if self.menu_actual == "Jurados":
+                mesaje_inicio_jurados(st)
+            elif self.menu_actual == "Evaluar Trabajo":
+                agregar_evaluacion(st, self.controller)
+        elif self.menu_actual == "Directora":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ['Modificar Criterios', 'Ver Historicos'],
-                                               icons=['vector-pen', 'stack-overflow'],
+                self.menu_actual = option_menu(None, ["Directora", 'Modificar Criterios', 'Ver Historicos'],
+                                               icons=["briefcase", 'vector-pen', 'stack-overflow'],
                                                menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
-        if self.menu_actual == "Crear Acta":
-            pass
-
+            if self.menu_actual == "Directora":
+                mesaje_inicio_directora(st)
 
 # Main call
 if __name__ == "__main__":
