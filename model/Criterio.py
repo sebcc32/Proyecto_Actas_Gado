@@ -3,7 +3,7 @@ import json
 class Criterio:
 
     def __init__(self) -> None:
-        self.criterio = ""
+        self.descripcion = ""
         self.observacion = " "
         self.nota1 = " "
         self.nota2 = " "

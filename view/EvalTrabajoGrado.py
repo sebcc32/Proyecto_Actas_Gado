@@ -6,6 +6,7 @@ file = open("model\ListaCriterios.json", "r")
 js = file.read()
 lista_criterios = json.loads(js)
 
+
 def agregar_acta(st, controller):
     # Objecto que modelará el formulario
     acta_obj = Acta()
@@ -19,7 +20,7 @@ def agregar_acta(st, controller):
     st.write("Si no hay codirector poner: N/A")
     acta_obj.jurado1 = st.text_input("Nombre Primer Jurado")
     acta_obj.jurado2 = st.text_input("Nombre Segundo Jurado")
-    acta_obj.criterio = lista_criterios       #aqui creando un acta y colocando criterior predeterminados
+    #acta_obj.criterio = lista_criterios       #aqui creando un acta y colocando criterior predeterminados
     enviado_btn = st.button("Enviar")
     if enviado_btn:
         controller.agregar_acta(acta_obj)
@@ -34,19 +35,22 @@ def agregar_evaluacion(st, controller):
     acta_evaluar = st.selectbox("¿Que acta vas a calificar?", actas_llaves)  # Asi encuentro todas las llaves del directorio acta
 
     criterio_obj = Criterio()
-    criterio_obj.criterio = st.selectbox('Criterio a evaluar?', lista_criterios)
+    llave = st.selectbox('Criterio a evaluar?', lista_criterios)
+    criterio_obj.descripcion  = str(llave)
     criterio_obj.observacion = st.text_input("Observaciones adicionales")
-    criterio_obj.nota1 = st.text_input("Nota primer jurado")                        #aqui lleno los objetos de la clase criterio
-    criterio_obj.nota2 = st.text_input("Nota segundo jurado")
-    criterio_obj.ponderado = lista_criterios[criterio_obj.criterio][0]
+    criterio_obj.nota1 = st.number_input("Nota primer jurado")                        #aqui lleno los objetos de la clase criterio
+    criterio_obj.nota2 = st.number_input("Nota segundo jurado")
+    criterio_obj.ponderado = lista_criterios[llave]
     st.write("El ponderado es de: ", criterio_obj.ponderado) #pon el ponderado automaticamente de lista_criterios si puedes y vuelve a poner los ponderados en el jsonxD
+
 
     enviado_btn = st.button("Enviar")
     if enviado_btn:
-        controller.actas[acta_evaluar].criterio[criterio_obj.criterio] = criterio_obj             #aqui estoy metiendo los objetos de criterio
+        controller.actas[acta_evaluar].agregar_criterio(criterio_obj)     #aqui estoy metiendo los objetos de criterio
         st.write("El archivo se ha creado exitosamente")                   #al diccionario criterio que tengo en acta que elegi
 
     # Retorna el controlador pq solo las colecciones se pasan en python por referencia,
     # entonces de esta manera se actualiza el controlador en la vista principal
+
 
 

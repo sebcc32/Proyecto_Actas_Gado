@@ -18,5 +18,8 @@ class Acta:
 
         self.criterio = {}
 
+    def agregar_criterio(self, criterio):
+        self.criterio[criterio.descripcion] = criterio
+
     def __str__(self) -> str:
         return json.dumps(self.__dict__)

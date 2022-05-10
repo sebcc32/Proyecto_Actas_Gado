@@ -40,9 +40,9 @@ class MainView:
     def controlar_menu(self):
         if self.menu_actual == "Asistente":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ["Asistente", 'Crear Acta', 'Ver Historicos'],
-                                               icons=["briefcase", 'mortarboard', 'stack-overflow'],
-                                               menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
+                self.menu_actual = option_menu("Menu", ["Asistente", 'Crear Acta', 'Ver Historicos'],
+                                               icons=["person", 'mortarboard', 'stack-overflow'],
+                                               menu_icon="display", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
             if self.menu_actual == "Asistente":
                 mesaje_inicio_asistente(st)
             elif self.menu_actual == "Crear Acta":
@@ -51,18 +51,18 @@ class MainView:
                 listar_actas(st, self.controller)
         elif self.menu_actual == "Jurados":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ["Jurados", 'Exportar Acta', 'Evaluar Trabajo'],
+                self.menu_actual = option_menu('Menu', ["Jurados", 'Exportar Acta', 'Evaluar Trabajo'],
                                                icons=["briefcase", 'file-pdf', 'pencil-square'],
-                                               menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
+                                               menu_icon="display", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
             if self.menu_actual == "Jurados":
                 mesaje_inicio_jurados(st)
             elif self.menu_actual == "Evaluar Trabajo":
                 agregar_evaluacion(st, self.controller)
         elif self.menu_actual == "Directora":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ["Directora", 'Modificar Criterios', 'Ver Historicos', 'Editar Criterios'],
-                                               icons=["briefcase", 'vector-pen', 'stack-overflow'],
-                                               menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
+                self.menu_actual = option_menu('Menu', ["Directora", 'Modificar Criterios', 'Ver Historicos', 'Editar Criterios'],
+                                               icons=["cast", 'vector-pen', 'stack-overflow'],
+                                               menu_icon="display", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
             if self.menu_actual == "Directora":
                 mesaje_inicio_directora(st)
             elif self.menu_actual == "Ver Historicos":
