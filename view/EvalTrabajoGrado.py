@@ -34,7 +34,7 @@ def agregar_evaluacion(st, controller):
     acta_evaluar = st.selectbox("¿Que acta vas a calificar?", actas_llaves)  # Asi encuentro todas las llaves del directorio acta
 
     criterio_obj = Criterio()
-    criterio_obj.criterio = st.selectbox('Criterio a evaluar?', lista_criterios )
+    criterio_obj.criterio = st.selectbox('Criterio a evaluar?', lista_criterios)
     criterio_obj.observacion = st.text_input("Observaciones adicionales")
     criterio_obj.nota1 = st.text_input("Nota primer jurado")                        #aqui lleno los objetos de la clase criterio
     criterio_obj.nota2 = st.text_input("Nota segundo jurado")

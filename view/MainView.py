@@ -4,9 +4,8 @@ from streamlit_option_menu import option_menu
 from controller.Controlador import EvaluadorController
 from view.Inicio import mesaje_inicio_asistente, mesaje_inicio_jurados, mesaje_inicio_directora
 from view.EvalTrabajoGrado import agregar_acta, agregar_evaluacion
-from ListaActa import listar_actas
-from view.PruebaPartial import probar_streamlit, abrir_musica
-
+from view.ListaActa import listar_actas
+from view.EditarCriterios import base
 
 class MainView:
     def __init__(self) -> None:
@@ -61,11 +60,15 @@ class MainView:
                 agregar_evaluacion(st, self.controller)
         elif self.menu_actual == "Directora":
             with st.sidebar:
-                self.menu_actual = option_menu(None, ["Directora", 'Modificar Criterios', 'Ver Historicos'],
+                self.menu_actual = option_menu(None, ["Directora", 'Modificar Criterios', 'Ver Historicos', 'Editar Criterios'],
                                                icons=["briefcase", 'vector-pen', 'stack-overflow'],
                                                menu_icon="cast", default_index=0, styles={"nav-link-selected": {"background-color": "#0b4bff"},})
             if self.menu_actual == "Directora":
                 mesaje_inicio_directora(st)
+            elif self.menu_actual == "Ver Historicos":
+                listar_actas(st, self.controller)
+            elif self.menu_actual == "Editar Criterios":
+                base(st)
 
 # Main call
 if __name__ == "__main__":
