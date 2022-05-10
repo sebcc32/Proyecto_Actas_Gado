@@ -1,6 +1,6 @@
 import json
 
-class CrearActa:
+class Acta:
 
     def __init__(self) -> None:
         super().__init__()

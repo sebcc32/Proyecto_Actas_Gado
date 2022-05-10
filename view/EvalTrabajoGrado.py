@@ -1,4 +1,4 @@
-from model.CrearActa import CrearActa
+from model.Acta import Acta
 from model.Criterio import Criterio
 import json
 
@@ -8,7 +8,7 @@ lista_criterios = json.loads(js)
 
 def agregar_acta(st, controller):
     # Objecto que modelará el formulario
-    acta_obj = CrearActa()
+    acta_obj = Acta()
     acta_obj.numero = st.number_input("Id acta")
     acta_obj.nombre_del_trabajo = st.text_input("Titulo del trabajo")
     acta_obj.fecha = st.date_input("Fecha de creacion del trabajo")
@@ -38,11 +38,12 @@ def agregar_evaluacion(st, controller):
     criterio_obj.observacion = st.text_input("Observaciones adicionales")
     criterio_obj.nota1 = st.text_input("Nota primer jurado")                        #aqui lleno los objetos de la clase criterio
     criterio_obj.nota2 = st.text_input("Nota segundo jurado")
-    criterio_obj.ponderado = st.text_input("Ponderado") #pon el ponderado automaticamente de lista_criterios si puedes y vuelve a poner los ponderados en el jsonxD
+    criterio_obj.ponderado = lista_criterios[criterio_obj.criterio][0]
+    st.write("El ponderado es de: ", criterio_obj.ponderado) #pon el ponderado automaticamente de lista_criterios si puedes y vuelve a poner los ponderados en el jsonxD
 
     enviado_btn = st.button("Enviar")
     if enviado_btn:
-        controller.actas[acta_evaluar].criterio = criterio_obj             #aqui estoy metiendo los objetos de criterio
+        controller.actas[acta_evaluar].criterio[criterio_obj.criterio] = criterio_obj             #aqui estoy metiendo los objetos de criterio
         st.write("El archivo se ha creado exitosamente")                   #al diccionario criterio que tengo en acta que elegi
 
     # Retorna el controlador pq solo las colecciones se pasan en python por referencia,
